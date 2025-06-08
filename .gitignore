@@ -1,4 +1,5 @@
 application.properties
+node_modules/
 
 ### added by spring
 HELP.md

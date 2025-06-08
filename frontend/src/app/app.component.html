@@ -1,0 +1,72 @@
+<div *ngIf="!loggedInUser">
+  <p>My name is...</p>
+  <input [(ngModel)]="username" placeholder="Enter username" />
+  <button (click)="login()">Login</button>
+</div>
+
+<div *ngIf="loggedInUser">
+  <p>Logged in as {{loggedInUser.username}}. <a href="#" (click)="logout($event)">Logout</a></p>
+
+  <h3>Create a Post</h3>
+  <form (submit)="createPost(); $event.preventDefault()">
+    <input [(ngModel)]="title" name="title" required placeholder="title" /><br><br>
+    <textarea [(ngModel)]="newPost" name="content" rows="2" required placeholder="your text"></textarea><br>
+    <button type="submit">Post</button>
+  </form>
+
+  <h3>All Posts</h3>
+
+  <div *ngFor="let post of posts" class="post-container">
+    <!-- post edit -->
+    <div *ngIf="editingPost?.id === post.id && post.user.username === loggedInUser.username; else showContent">
+      <input [(ngModel)]="editingTitle" placeholder="Title" />
+      <input [(ngModel)]="editingContent" placeholder="Content" />
+    </div>
+
+    <!-- post content template -->
+    <ng-template #showContent>
+      <div>Title: {{post.title}}</div>
+      <div>{{ post.content }}</div>
+    </ng-template>
+
+    <!-- save/cancel for editing posts -->
+    <div *ngIf="editingPost?.id === post.id">
+      <button (click)="submitEdit(post.id)">Save</button>
+      <button (click)="cancelEdit()">Cancel</button>
+    </div>
+
+    <small>by {{ post.user.username }}, <span *ngIf="post.edited">(edited)</span> at {{post.createdAt | date: 'short'}}</small>
+
+    <!-- edit for posts -->
+    <div class="post-actions">
+      <button *ngIf="post.user.username === loggedInUser.username && editingPost?.id !== post.id" (click)="startEdit(post)">
+        Edit
+      </button>
+
+      <button *ngIf="post.user.username === loggedInUser.username" (click)="deletePost(post.id)">Delete</button>
+    </div>
+    <div class="add-comment">
+      <input [(ngModel)]="newComments[post.id]" placeholder="Add a comment..." />
+      <button (click)="addComment(post.id)">Post</button>
+    </div>
+
+    <!-- comments on post -->
+    <div *ngFor="let comment of comments[post.id]" class="comment">
+      <div *ngIf="!editingCommentId || editingCommentId !== comment.id">
+        <p>
+          <strong>{{ comment.user?.username }}:</strong> {{ comment.content }}
+          <small>, <span *ngIf="comment.edited">(edited)</span> at {{comment.createdAt | date: 'short'}}</small>
+        </p>
+        <div class="comment-actions">
+          <button *ngIf="comment.user?.id == loggedInUser?.id" (click)="editComment(comment)">Edit</button>
+          <button *ngIf="comment.user?.id == loggedInUser?.id" (click)="deleteComment(comment)">Delete</button>
+        </div>
+      </div>
+      <div *ngIf="editingCommentId === comment.id">
+        <input [(ngModel)]="editingContentComment" />
+        <button (click)="saveComment(comment)">Save</button>
+        <button (click)="cancelEditComment()">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>

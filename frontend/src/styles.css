@@ -1,0 +1,95 @@
+/* You can add global styles to this file, and also import other style files */
+div {
+  max-width: 600px;
+  margin: 0 auto;
+  font-family: Arial, sans-serif;
+}
+
+input, textarea, button {
+  font-size: 14px;
+  padding: 8px;
+  margin-bottom: 10px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+textarea {
+  resize: vertical;
+}
+
+button {
+  background-color: #1976d2;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #135ca1;
+}
+
+form {
+  margin-bottom: 20px;
+}
+
+.post-container {
+  border: 1px solid #ccc;
+  padding: 12px;
+  border-radius: 6px;
+  margin-bottom: 20px;
+  background-color: #fafafa;
+}
+
+.comment {
+  margin-left: 15px;
+  border-left: 2px solid #ddd;
+  padding-left: 10px;
+  margin-top: 8px;
+  background-color: #f9f9f9;
+}
+
+.comment p {
+  margin: 6px 0;
+}
+
+small {
+  font-size: 12px;
+  color: #666;
+}
+
+h3 {
+  border-bottom: 2px solid #ccc;
+  padding-bottom: 5px;
+  margin-top: 30px;
+}
+
+.comment-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.add-comment {
+  display: flex;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.add-comment input {
+  width: auto;
+}
+
+.add-comment button {
+  width: 30%;
+}
+
+.add-comment input {
+  flex: 1;
+}
+
+.post-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 8px;
+}
